@@ -73,11 +73,17 @@
                                     <i class="fa-solid fa-arrow-right-from-bracket"></i> |  Logout</a>
                             </li>                    
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="/mis-datos">
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="datosDropdown" data-bs-toggle="collapse" data-bs-target="#datosMenu" aria-expanded="false">
                                     <i class="fa-regular fa-user"></i> | 
                                     <span th:text="${#authentication.name}"></span>
                                     (<span th:text="${#authentication.authorities[0]}"></span>)
                                 </a>
+                                <ul class="collapse list-unstyled ps-3" id="datosMenu">
+                                    <li><a class="nav-link text-white" href="/mis-datos">
+                                        Mis datos</a></li>
+                                    <li><a class="nav-link text-white" href="" target="/mis-datos/mis-reservas">
+                                        Mis reservas</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
