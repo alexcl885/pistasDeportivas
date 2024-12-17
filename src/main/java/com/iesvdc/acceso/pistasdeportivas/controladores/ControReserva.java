@@ -1,0 +1,100 @@
+package com.iesvdc.acceso.pistasdeportivas.controladores;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.iesvdc.acceso.pistasdeportivas.modelos.Instalacion;
+import com.iesvdc.acceso.pistasdeportivas.modelos.Reserva;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoReserva;
+
+/**
+ * Este es el controller de los admin por el cual 
+ * pueden crear, borrar y editar una reserva
+ */
+@Controller
+@RequestMapping("/reservas")
+public class ControReserva {
+
+    @Autowired 
+    RepoReserva repoReserva;
+
+    @GetMapping("")
+    public String getReserva(Model model) {
+        List<Reserva> reservas = repoReserva.findAll();
+        model.addAttribute("reservas", reservas);
+        return "/mis-datos/mis-datos";
+    }
+
+
+    @GetMapping("/add")
+    public String addReserva(Model modelo) {
+        modelo.addAttribute("reserva", new Instalacion());
+        return "/mis-datos/add";
+    }
+
+    @PostMapping("/add")
+    public String addReserva(
+        @ModelAttribute("reserva") Reserva reserva)  {
+        repoReserva.save(reserva);
+        return "redirect:/mis-datos";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editReserva( 
+        @PathVariable @NonNull Long id,
+        Model modelo) {
+
+        Optional<Reserva> oReserva = repoReserva.findById(id);
+        if (oReserva.isPresent()) {
+            modelo.addAttribute("reserva", oReserva.get());
+            return "/mis-datos/add";
+        } else {
+            modelo.addAttribute("mensaje", "La reserva no exsiste");
+            modelo.addAttribute("titulo", "Error editando reserva.");
+            return "/error";
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editReserva(
+        @ModelAttribute("reserva") Reserva reserva)  {
+        repoReserva.save(reserva);
+        return "redirect:/mis-datos";
+    }
+
+
+    @GetMapping("/del/{id}")
+    public String delReserva( 
+        @PathVariable @NonNull Long id,
+        Model modelo) {
+
+        Optional<Reserva> oInstalacion = repoReserva.findById(id);
+        if (oInstalacion.isPresent()) {
+            modelo.addAttribute("borrando", "verdadero");
+            modelo.addAttribute("instalacion", oInstalacion.get());
+            return "/add";
+        } else {
+            modelo.addAttribute("mensaje", "La reserva no exsiste");
+            modelo.addAttribute("titulo", "Error borrando reserva.");
+            return "/error";
+        }
+    }
+
+    @PostMapping("/del/{id}")
+    public String delReserva(
+        @ModelAttribute("reserva") Reserva reserva)  {
+        repoReserva.delete(reserva);
+        return "redirect:/mis-datos";
+    }
+
+}
