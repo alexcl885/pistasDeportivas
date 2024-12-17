@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{plantilla/fragmentos.html :: headfiles}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div th:replace="plantilla/fragmentos.html :: navigation"></div>
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th> 
+                        <th>instalacion</th>
+                        <th>hora_inicio</th>
+                        <th>hora_fin</th>
+                        <th>fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reserva : ${reservas}">
+                        <td th:text="${reserva.id}">id</td>
+                        <td th:text="${reserva.instalacion}">instalacion</td>
+                        <td th:text="${reserva.hora_inicio}">hora_inicio</td>
+                        <td th:text="${reserva.hora_fin}">hora_fin</td>
+                        <td th:text="${reserva.fecha}">fecha</td>
+                        <td th:if="${reserva.borrable}"> <a class="btn btn-danger" th:href="|mis-datos/mis-reservas/del/${reserva.id}|"> borrar </a></td>
+                    </tr>            
+                </tbody>        
+                
+            </table> 
+        </div>
+
+        <div th:replace="plantilla/fragmentos.html ::footer"></div>
+    </div>
+</body>
+</html>

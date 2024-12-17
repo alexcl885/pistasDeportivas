@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.iesvdc.acceso.pistasdeportivas.modelos.Usuario;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoReserva;
 import com.iesvdc.acceso.pistasdeportivas.repos.RepoUsuario;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class ControDatos {
 
     @Autowired
     RepoUsuario repoUsuario;
+    RepoReserva repoReserva;
 
     private Usuario getLoggedUser(){
         Authentication authentication = 
@@ -69,6 +71,12 @@ public class ControDatos {
         
     }
     
+    @GetMapping("/mis-reservas")
+    public String getMisReservas(Model modelo) {
+        modelo.addAttribute("reservas", repoReserva.findByUsuario(getLoggedUser()));
+        //modelo.add
 
+        return "mis-datos/mis-datos";
+    }
     
 }
