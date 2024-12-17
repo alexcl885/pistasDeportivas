@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.iesvdc.acceso.pistasdeportivas.modelos.Instalacion;
 import com.iesvdc.acceso.pistasdeportivas.modelos.Reserva;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoHorario;
 import com.iesvdc.acceso.pistasdeportivas.repos.RepoReserva;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoUsuario;
 
 /**
  * Este es el controller de los admin por el cual 
@@ -28,6 +30,12 @@ public class ControReserva {
     @Autowired 
     RepoReserva repoReserva;
 
+    @Autowired
+    RepoUsuario repoUsuario;
+
+    @Autowired
+    RepoHorario repoHorario;
+
     @GetMapping("")
     public String getReserva(Model model) {
         List<Reserva> reservas = repoReserva.findAll();
@@ -39,6 +47,7 @@ public class ControReserva {
     @GetMapping("/add")
     public String addReserva(Model modelo) {
         modelo.addAttribute("reserva", new Instalacion());
+        modelo.addAttribute("operacion", "ADD");
         return "/reservas/add";
     }
 
@@ -46,7 +55,7 @@ public class ControReserva {
     public String addReserva(
         @ModelAttribute("reserva") Reserva reserva)  {
         repoReserva.save(reserva);
-        return "redirect:/reservas";
+        return "redirect:/reserva";
     }
 
     @GetMapping("/edit/{id}")
@@ -57,6 +66,9 @@ public class ControReserva {
         Optional<Reserva> oReserva = repoReserva.findById(id);
         if (oReserva.isPresent()) {
             modelo.addAttribute("reserva", oReserva.get());
+            modelo.addAttribute("usuarios", repoUsuario.findAll());
+            modelo.addAttribute("horarios", repoHorario.findAll());
+            modelo.addAttribute("operacion", "EDIT");
             return "/reservas/add";
         } else {
             modelo.addAttribute("mensaje", "La reserva no exsiste");
@@ -82,6 +94,9 @@ public class ControReserva {
         if (oReserva.isPresent()) {
             modelo.addAttribute("borrando", "verdadero");
             modelo.addAttribute("reserva", oReserva.get());
+            modelo.addAttribute("usuarios", repoUsuario.findAll());
+            modelo.addAttribute("horarios", repoHorario.findAll());
+            modelo.addAttribute("operacion", "DEL");
             return "/reservas/add";
         } else {
             modelo.addAttribute("mensaje", "La reserva no exsiste");
