@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{plantilla/fragmentos.html :: headfiles}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div th:replace="plantilla/fragmentos.html :: navigation"></div>
+
+        <h3>Añadir una nueva instalación deportiva</h3>
+
+        <form method="post" th:object="${reserva}" class="needs-validation" novalidate>
+            <input type="number" hidden name="id" th:value="${reserva.id}" />
+        
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Fecha</label>
+                <input type="date" 
+                       id="nombre" 
+                       name="nombre" 
+                       class="form-control" 
+                       th:value="${reserva.fecha}" 
+                       th:attr="disabled=${borrando} != null ? 'disabled' : null" />
+                <label for="nombre" class="form-label">Hora Inicio</label>
+            
+                <input type="time" 
+                       id="nombre" 
+                       name="nombre" 
+                       class="form-control" 
+                       th:value="${reserva.horario.horaInicio}" 
+                       th:attr="disabled=${borrando} != null ? 'disabled' : null" />
+                <label for="nombre" class="form-label">Hora Fin</label>
+
+                <input type="time" 
+                       id="nombre" 
+                       name="nombre" 
+                       class="form-control" 
+                       th:value="${reserva.horario.horaFin}" 
+                       th:attr="disabled=${borrando} != null ? 'disabled' : null" />
+
+                <label for="nombre" class="form-label">Usuario</label>
+                <!--habria que realizar un maestro-detalle-->
+                <input type="text" 
+                        id="nombre" 
+                        name="nombre" 
+                        class="form-control" 
+                        th:value="${reserva.usuario.username}" 
+                        th:attr="disabled=${borrando} != null ? 'disabled' : null" />
+
+                
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+        
+        
+
+        <div th:replace="plantilla/fragmentos.html ::footer"></div>
+    </div>
+</body>
+</html>

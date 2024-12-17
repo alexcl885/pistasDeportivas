@@ -32,21 +32,21 @@ public class ControReserva {
     public String getReserva(Model model) {
         List<Reserva> reservas = repoReserva.findAll();
         model.addAttribute("reservas", reservas);
-        return "/mis-datos/mis-datos";
+        return "/reservas/reservas";
     }
 
 
     @GetMapping("/add")
     public String addReserva(Model modelo) {
         modelo.addAttribute("reserva", new Instalacion());
-        return "/mis-datos/add";
+        return "/reservas/add";
     }
 
     @PostMapping("/add")
     public String addReserva(
         @ModelAttribute("reserva") Reserva reserva)  {
         repoReserva.save(reserva);
-        return "redirect:/mis-datos";
+        return "redirect:/reservas";
     }
 
     @GetMapping("/edit/{id}")
@@ -57,7 +57,7 @@ public class ControReserva {
         Optional<Reserva> oReserva = repoReserva.findById(id);
         if (oReserva.isPresent()) {
             modelo.addAttribute("reserva", oReserva.get());
-            return "/mis-datos/add";
+            return "/reservas/add";
         } else {
             modelo.addAttribute("mensaje", "La reserva no exsiste");
             modelo.addAttribute("titulo", "Error editando reserva.");
@@ -69,7 +69,7 @@ public class ControReserva {
     public String editReserva(
         @ModelAttribute("reserva") Reserva reserva)  {
         repoReserva.save(reserva);
-        return "redirect:/mis-datos";
+        return "redirect:/reservas";
     }
 
 
@@ -78,11 +78,11 @@ public class ControReserva {
         @PathVariable @NonNull Long id,
         Model modelo) {
 
-        Optional<Reserva> oInstalacion = repoReserva.findById(id);
-        if (oInstalacion.isPresent()) {
+        Optional<Reserva> oReserva = repoReserva.findById(id);
+        if (oReserva.isPresent()) {
             modelo.addAttribute("borrando", "verdadero");
-            modelo.addAttribute("instalacion", oInstalacion.get());
-            return "/add";
+            modelo.addAttribute("reserva", oReserva.get());
+            return "/reservas/add";
         } else {
             modelo.addAttribute("mensaje", "La reserva no exsiste");
             modelo.addAttribute("titulo", "Error borrando reserva.");
@@ -94,7 +94,7 @@ public class ControReserva {
     public String delReserva(
         @ModelAttribute("reserva") Reserva reserva)  {
         repoReserva.delete(reserva);
-        return "redirect:/mis-datos";
+        return "redirect:/reservas";
     }
 
 }
