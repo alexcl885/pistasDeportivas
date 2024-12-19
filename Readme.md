@@ -1,6 +1,7 @@
-# Readme Alex
-
 ## Reservas
+
+### Reservas-ADMIN
+
 En el fragmento del **nav principal**, he añadido un apartado exclusivo para los usuarios con rol de **ADMIN**. Este apartado, llamado **Reservas**, permite a los administradores acceder a las reservas actuales y gestionar su contenido. Las funcionalidades incluyen:
 - Visualización de todas las reservas disponibles.
 - Edición de reservas existentes.
@@ -28,7 +29,7 @@ El controlador **ControReserva** permite gestionar las reservas y está diseñad
 
 ---
 
-## Plantillas Thymeleaf
+## Plantilla Thymeleaf
 He implementado dos plantillas principales mediante el motor de plantillas **Thymeleaf**:
 
 1. **Reservas**: 
