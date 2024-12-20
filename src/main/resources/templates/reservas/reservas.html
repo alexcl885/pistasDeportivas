@@ -8,12 +8,13 @@
 <body>
     <div class="container-fluid">    
         <div th:replace="plantilla/fragmentos.html :: navigation"></div>
-        <h3>Instalaciones</h3>
+        <h3>Reservas</h3>
         <table class="table">
             <thead>
                 <tr>
                     <th>#</th> 
                     <th>Fecha</th>
+                    <th>Instalacion</th>
                     <th>Inicio</th>
                     <th>Fin</th>
                     <th>Usuario</th>
@@ -25,12 +26,12 @@
                 <tr th:each="reserva : ${reservas}">
                     <td th:text="${reserva.id}">ID</td>
                     <td th:text="${reserva.fecha}">Fecha</td>
-                    <td th:text="${reserva.horario.horaInicio}">Fecha</td>
-                    <td th:text="${reserva.horario.horaFin}">Fecha</td>
-                    <td th:text="${reserva.usuario.username}">Fecha</td>
-                    
-                    <td> <a class="btn btn-success" th:href="|reservas/edit/${reserva.id}|"> editar </a> </td>
-                    <td> <a class="btn btn-danger" th:href="|reservas/del/${reserva.id}|"> borrar </a> </td>
+                    <td th:text="${reserva.horario.instalacion.nombre}">Instalacion</td>
+                    <td th:text="${reserva.horario.horaInicio}">Inicio</td>
+                    <td th:text="${reserva.horario.horaFin}">Fin</td>
+                    <td th:text="${reserva.usuario.username}">Usuario</td>
+                    <td> <a class="btn btn-success" th:href="@{|/reservas/edit/${reserva.id}|}"> editar </a> </td>
+                    <td> <a class="btn btn-danger" th:href="@{|/reservas/del/${reserva.id}|}"> borrar </a> </td>
                 </tr>            
             </tbody>        
         </table>    

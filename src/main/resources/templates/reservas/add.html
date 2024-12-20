@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head th:replace="~{plantilla/fragmentos.html :: headfiles}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,49 +20,50 @@
 
         <form method="post" th:object="${reserva}" class="needs-validation" novalidate>
             <input type="number" hidden name="id" th:value="${reserva.id}" />
-        
+
             <div class="mb-3">
                 <label for="nombre" class="form-label">Usuario</label>
                 <!--Maestro-detalle realizado para seleccionar a un usuario-->
-                
-                        
-                <select class="form-select" th:field="*{usuario.id}" name="usuario" id="usuario" 
-                th:attr="disabled=${borrando} != null ? 'disabled' : null">
-                    <option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
-                        th:text="${usuario.username}"></option>
-                </select>
-
-                <label for="nombre" class="form-label">Fecha</label>
-                <input type="date" 
-                       id="fecha" 
-                       name="fecha" 
-                       class="form-control" 
-                       th:value="${reserva.fecha}" 
-                       th:attr="disabled=${borrando} != null ? 'disabled' : null" />
-                
-            
-                <label for="horario" class="form-label">Horario</label>
-                <select class="form-select" 
-                        th:field="*{horario.id}" 
-                        id="horario" 
-                        th:attr="disabled=${borrando} != null ? 'disabled' : null">
-                    <option th:each="horario : ${horarios}" 
-                            th:value="${horario.id}" 
-                            th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}">
+                <select class="form-select" th:field="*{usuario.id}" name="usuario" id="usuario"
+                    th:attr="disabled=${borrando} != null ? 'disabled' : null">
+                    <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.username}">
                     </option>
                 </select>
 
-                
+                <label for="nombre" class="form-label">Fecha</label>
+                <input type="date" id="fecha" name="fecha" class="form-control" th:value="${reserva.fecha}"
+                    th:attr="disabled=${borrando} != null ? 'disabled' : null" />
 
-                
+                <label for="instalacion" class="form-label">Instalacion</label>
+                 <select class="form-select" th:field="*{horario.instalacion.id}" name="instalacion" id="instalacion"
+                    th:attr="disabled=${borrando} != null ? 'disabled' : null">
+                    <option th:each="instalacion : ${instalaciones}" th:value="${instalacion.id}"
+                        th:text="${instalacion.nombre}">
+                    </option>
+                </select>
+
+
+
+                <label for="horario" class="form-label">Horario</label>
+                <select class="form-select" th:field="*{horario.id}" id="horario"
+                    th:attr="disabled=${borrando} != null ? 'disabled' : null">
+                    <option th:each="horario : ${horarios}" th:value="${horario.id}"
+                        th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}">
+                    </option>
+                </select>
+
+
+
+
             </div>
-        
+
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
-        
-        
+
+
 
         <div th:replace="plantilla/fragmentos.html ::footer"></div>
     </div>
 </body>
+
 </html>
