@@ -29,19 +29,17 @@
                             </li>
                             <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                                 <!-- SOLO ADMIN -->
-                                <a class="nav-link text-white dropdown-toggle" href="#" id="pistasDropdown"
-                                    data-bs-toggle="collapse" data-bs-target="#pistasMenu" aria-expanded="false">
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="pistasDropdown" data-bs-toggle="collapse" data-bs-target="#pistasMenu" aria-expanded="false">
                                     <i class="fa-solid fa-house-medical"></i> | Pistas
                                 </a>
-                                <ul class="collapse list-unstyled ps-3" id="pistasMenu">
+                                <ul class="collapse list-unstyled ps-3" id="pistasMenu">                                    
                                     <li><a class="nav-link text-white" href="/instalacion">Listar</a></li>
                                     <li><a class="nav-link text-white" href="/instalacion/add">Alta</a></li>
                                 </ul>
                             </li>
                             <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                                 <!-- SOLO ADMIN -->
-                                <a class="nav-link text-white dropdown-toggle" href="#" id="horariosDropdown"
-                                    data-bs-toggle="collapse" data-bs-target="#horariosMenu" aria-expanded="false">
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="horariosDropdown" data-bs-toggle="collapse" data-bs-target="#horariosMenu" aria-expanded="false">
                                     <i class="fa-regular fa-clock"></i> | Horarios
                                 </a>
                                 <ul class="collapse list-unstyled ps-3" id="horariosMenu">
@@ -49,20 +47,10 @@
                                     <li><a class="nav-link text-white" href="/horario/add">Alta</a></li>
                                 </ul>
                             </li>
-                            <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"> <!-- SOLO ADMIN --> <a
-                                    class="nav-link text-white dropdown-toggle" href="#" id="reservasDropdown"
-                                    data-bs-toggle="collapse" data-bs-target="#reservasMenu" aria-expanded="false"> <i
-                                        class="fa-regular fa-calendar-check"></i> | Reservas </a>
-                                <ul class="collapse list-unstyled ps-3" id="reservasMenu">
-                                    <li><a class="nav-link text-white" href="/reservas">Listar</a></li>
-                                    
-                                </ul>
-                            </li>
                             <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                                 <!-- SOLO ADMIN -->
-                                <a class="nav-link text-white dropdown-toggle" href="#" id="usuariosDropdown"
-                                    data-bs-toggle="collapse" data-bs-target="#usuariosMenu" aria-expanded="false">
-                                    <i class="fa-solid fa-users"></i> | Usuarios
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="usuariosDropdown" data-bs-toggle="collapse" data-bs-target="#usuariosMenu" aria-expanded="false">
+                                    <i class="fa-solid fa-users"></i> |  Usuarios
                                 </a>
                                 <ul class="collapse list-unstyled ps-3" id="usuariosMenu">
                                     <li><a class="nav-link text-white" href="/usuario">Listar</a></li>
@@ -70,26 +58,23 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white dropdown-toggle" href="#" id="ayudaDropdown"
-                                    data-bs-toggle="collapse" data-bs-target="#ayudaMenu" aria-expanded="false">
-                                    <i class="fa-solid fa-info"></i> | Ayuda
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="ayudaDropdown" data-bs-toggle="collapse" data-bs-target="#ayudaMenu" aria-expanded="false">
+                                    <i class="fa-solid fa-info"></i> |  Ayuda
                                 </a>
                                 <ul class="collapse list-unstyled ps-3" id="ayudaMenu">
                                     <li><a class="nav-link text-white" href="/acerca">
-                                            Acerca de...</a></li>
-                                    <li><a class="nav-link text-white"
-                                            href="https://gitlab.iesvirgendelcarmen.com/juangu/spring-reservas-2023"
-                                            target="_blank">
-                                            Manual</a></li>
+                                        Acerca de...</a></li>
+                                    <li><a class="nav-link text-white" href="https://gitlab.iesvirgendelcarmen.com/juangu/spring-reservas-2023" target="_blank">
+                                        Manual</a></li>
                                 </ul>
                             </li>
                             <li sec:authorize="isAuthenticated()" class="nav-item">
                                 <a class="nav-link text-white" href="/logout">
-                                    <i class="fa-solid fa-arrow-right-from-bracket"></i> | Logout</a>
-                            </li>
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i> |  Logout</a>
+                            </li>                    
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="/mis-datos">
-                                    <i class="fa-regular fa-user"></i> |
+                                    <i class="fa-regular fa-user"></i> | 
                                     <span th:text="${#authentication.name}"></span>
                                     (<span th:text="${#authentication.authorities[0]}"></span>)
                                 </a>
@@ -97,7 +82,7 @@
                         </ul>
                     </div>
                 </div>
-
+            
                 <!-- Main Content -->
                 <div class="flex-grow-1">
                     <nav class="navbar navbar-light bg-light">
@@ -106,37 +91,36 @@
                             <h1 class="navbar-brand">Gestión de Instalaciones Deportivas</h1>
                         </div>
                     </nav>
-
+                   
                 </div>
             </div>
-
+            
             <script>
                 document.getElementById("toggleSidebar").addEventListener("click", function () {
                     const sidenav = document.getElementById("sidenav");
                     sidenav.style.display = sidenav.style.display === "none" ? "block" : "none";
                 });
             </script>
-
-
+            
+            
         </div>
-    </div>
+    </div>           
 
-    <div th:fragment="footer">
-        <footer>
-            <h5>© 2024 IES Virgen del Carmen</h5>
-            <p>Entró en el sistema como:
-                <span th:text="${#authentication.name}"></span>
-                (<span th:text="${#authentication.authorities[0]}"></span>)
-            </p>
-            <p sec:authorize="hasAuthority('ADMIN')">
-                <b>Entró en el sistema como admin</b>
-            </p>
-
-        </footer>
-        <script src="/webjars/jquery/jquery.min.js"></script>
-        <script src="/webjars/popper.js/umd/popper.min.js"></script>
-        <script src="/webjars/bootstrap/js/bootstrap.bundle.js"></script>
-    </div>
+        <div th:fragment="footer">
+            <footer>
+                <h5>© 2024 IES Virgen del Carmen</h5>
+                <p>Entró en el sistema como:
+                    <span th:text="${#authentication.name}"></span>
+                    (<span th:text="${#authentication.authorities[0]}"></span>)</p>
+                <p sec:authorize="hasAuthority('ADMIN')">
+                    <b>Entró en el sistema como admin</b>
+                </p>
+                
+            </footer>
+            <script src="/webjars/jquery/jquery.min.js"></script>
+            <script src="/webjars/popper.js/umd/popper.min.js"></script>
+            <script src="/webjars/bootstrap/js/bootstrap.bundle.js"></script>
+        </div>
     </div>
 </body>
 
