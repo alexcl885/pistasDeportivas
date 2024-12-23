@@ -37,9 +37,15 @@
                        name="fecha" 
                        class="form-control" 
                        th:value="${reserva.fecha}" 
-                       th:attr="disabled=${borrando} != null ? 'disabled' : null" />
+                       th:attr="disabled=${borrando} != null ? 'disabled' : null" /> <br>
                 
-            
+                <label for="horario" class="form-label">Instalacion/Horario</label>
+
+                <a class="btn btn-primary" 
+                    th:href="|/reservas/edit/${reserva.id}/horario/edit/${reserva.horario.id}|">
+                            cambiar
+                </a><br><br>
+                
                 <label for="horario" class="form-label">Horario</label>
                 <select class="form-select" 
                         th:field="*{horario.id}" 

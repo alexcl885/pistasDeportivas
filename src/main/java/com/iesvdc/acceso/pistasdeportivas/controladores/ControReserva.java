@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.iesvdc.acceso.pistasdeportivas.modelos.Horario;
 import com.iesvdc.acceso.pistasdeportivas.modelos.Instalacion;
 import com.iesvdc.acceso.pistasdeportivas.modelos.Reserva;
 import com.iesvdc.acceso.pistasdeportivas.repos.RepoHorario;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoInstalacion;
 import com.iesvdc.acceso.pistasdeportivas.repos.RepoReserva;
 import com.iesvdc.acceso.pistasdeportivas.repos.RepoUsuario;
 
@@ -35,6 +37,9 @@ public class ControReserva {
 
     @Autowired
     RepoHorario repoHorario;
+
+    @Autowired
+    RepoInstalacion repoInstalacion;
 
     @GetMapping("")
     public String getReserva(Model model) {
@@ -109,6 +114,26 @@ public class ControReserva {
     public String delReserva(
         @ModelAttribute("reserva") Reserva reserva)  {
         repoReserva.delete(reserva);
+        return "redirect:/reservas";
+    }
+
+    @GetMapping("/edit/{id}/horario/edit/{idHorario}")
+    public String editHorario(Model modelo, @PathVariable @NonNull Long idHorario) {
+        Optional<Horario> oHorario = repoHorario.findById(idHorario);
+        if (oHorario.isPresent()) {
+            modelo.addAttribute("horario", oHorario.get());
+            modelo.addAttribute("instalaciones", repoInstalacion.findAll());
+            return "/reservas/horario";
+        } else {
+            modelo.addAttribute("mensaje", "La reserva no exsiste");
+            modelo.addAttribute("titulo", "Error borrando reserva.");
+            return "/error";
+        }
+    }
+
+    @PostMapping("/edit/{id}/horario/edit/{idHorario}")
+    public String editHorario(@ModelAttribute("horario") Horario horario) {
+        repoHorario.save(horario);
         return "redirect:/reservas";
     }
 

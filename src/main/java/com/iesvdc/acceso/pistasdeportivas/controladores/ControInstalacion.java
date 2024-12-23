@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.iesvdc.acceso.pistasdeportivas.modelos.Instalacion;
-import com.iesvdc.acceso.pistasdeportivas.repos.RepoInstalacion;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.iesvdc.acceso.pistasdeportivas.modelos.Instalacion;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoInstalacion;
 
 
 @Controller
@@ -92,5 +92,5 @@ public class ControInstalacion {
         repoInstalacion.delete(instalacion);
         return "redirect:/instalacion";
     }
-    
+ 
 }
