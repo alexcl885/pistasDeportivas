@@ -21,14 +21,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="reserva : ${reservas}">
-                        <td th:text="${reserva.id}">id</td>
-                        <td th:text="${reserva.instalacion}">instalacion</td>
-                        <td th:text="${reserva.hora_inicio}">hora_inicio</td>
-                        <td th:text="${reserva.hora_fin}">hora_fin</td>
-                        <td th:text="${reserva.fecha}">fecha</td>
-                        <td th:if="${reserva.borrable}"> <a class="btn btn-danger" th:href="|mis-datos/mis-reservas/del/${reserva.id}|"> borrar </a></td>
-                    </tr>            
+                        <tr th:each="reserva : ${reservas}">
+                            <td th:text="${reserva.id}">id</td>
+                            <td th:text="${reserva.horario.instalacion.nombre}">instalacion</td>
+                            <td th:text="${reserva.horario.horaInicio}">hora_inicio</td>
+                            <td th:text="${reserva.horario.horaFin}">hora_fin</td>
+                            <td th:text="${reserva.fecha}">fecha</td>
+                            <td th:if="${!localDate.isEqual(reserva.fecha)} or ${localDate.isBefore(reserva.fecha)}"> <a class="btn btn-danger" th:href="|mis-reservas/del/${reserva.id}|"> borrar </a></td>
+                        
+                        </tr>            
+
                 </tbody>        
                 
             </table> 
