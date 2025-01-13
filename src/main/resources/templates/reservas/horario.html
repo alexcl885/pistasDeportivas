@@ -1,0 +1,36 @@
+<html lang="en">
+<head th:replace="plantilla/fragmentos.html :: headfiles">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Horario</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div th:replace="plantilla/fragmentos.html :: navigation"></div>
+        <h3>Editar Horario</h3>
+        <form method="post" th:object="${horario}" class="needs-validation" novalidate>
+            <input type="hidden" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label for="instalacion" class="form-label">Instalación</label>
+                <select class="form-select" th:field="*{instalacion.id}" id="instalacion">
+                    <option th:each="instalacion : ${instalaciones}" th:value="${instalacion.id}" th:text="${instalacion.nombre}"></option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="horaInicio" class="form-label">Hora de Inicio</label>
+                <input type="time" id="horaInicio" th:field="*{horaInicio}" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label for="horaFin" class="form-label">Hora de Fin</label>
+                <input type="time" id="horaFin" th:field="*{horaFin}" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+        <div th:replace="plantilla/fragmentos.html :: footer"></div>
+    </div>
+</body>
+</html>
