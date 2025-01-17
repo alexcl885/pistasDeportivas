@@ -1,5 +1,8 @@
 package com.iesvdc.acceso.pistasdeportivas.controladores;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import com.iesvdc.acceso.pistasdeportivas.modelos.Usuario;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoHorario;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoInstalacion;
+import com.iesvdc.acceso.pistasdeportivas.repos.RepoReserva;
 import com.iesvdc.acceso.pistasdeportivas.repos.RepoUsuario;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +32,9 @@ public class ControDatos {
 
     @Autowired
     RepoUsuario repoUsuario;
+    @Autowired
+    RepoReserva repoReserva;
+
 
     private Usuario getLoggedUser(){
         Authentication authentication = 
@@ -69,6 +79,11 @@ public class ControDatos {
         
     }
     
-
+    @GetMapping("/mis-reservas")
+    public String getMisReservas(Model modelo) {
+        modelo.addAttribute("reservas", repoReserva.findByUsuario(getLoggedUser()));
+        modelo.addAttribute("localDate", LocalDate.now());
+        return "mis-datos/mis-reservas";
+    }
     
 }

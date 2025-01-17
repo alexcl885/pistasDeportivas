@@ -49,7 +49,7 @@ public class ConfiSec {
                     "/horario/**", "/instalacion/**", "/reservas/**")
                     .hasAuthority("ADMIN")
                 .requestMatchers(
-                    "/mis-datos/**", "/mis-datos/*/**" )
+                    "/mis-datos/**", "/mis-datos/*/**")
                     .authenticated())
                 .exceptionHandling((exception)-> exception.
                     accessDeniedPage("/denegado") )
