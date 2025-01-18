@@ -39,21 +39,22 @@
                        th:value="${reserva.fecha}" 
                        th:attr="disabled=${borrando} != null ? 'disabled' : null" /> <br>
                 
-                <label for="horario" class="form-label">Instalacion/Horario</label>
+                <label th:if="${borrando == null}" for="horario" class="form-label">Instalacion/Horario</label>
 
                 <a class="btn btn-primary" 
+                    th:if="${borrando == null}"
                     th:href="|/reservas/edit/${reserva.id}/horario/edit/${reserva.horario.id}|">
-                            cambiar
+                    cambiar para todas
                 </a><br><br>
                 
-                <label for="horario" class="form-label">Horario</label>
+                <label for="horario" class="form-label">Horario-Instalacion</label>
                 <select class="form-select" 
                         th:field="*{horario.id}" 
                         id="horario" 
                         th:attr="disabled=${borrando} != null ? 'disabled' : null">
                     <option th:each="horario : ${horarios}" 
                             th:value="${horario.id}" 
-                            th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}">
+                            th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}+ ' || ' + ' Instalacion: '+ ${horario.instalacion.nombre}">
                     </option>
                 </select>
 
