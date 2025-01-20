@@ -21,7 +21,7 @@
             <tr th:each="instalacion : ${instalaciones}">
                 <td th:text="${instalacion.id}">ID</td>
                 <td th:text="${instalacion.nombre}">Nombre</td>
-                <td> <a class="btn btn-success" th:href="|mis-datos/reservar|"> reservar </a> </td>
+                <td> <a class="btn btn-success" th:href="|/mis-datos/reservar/${instalacion.id}|"> reservar </a> </td>
             </tr>            
         </tbody>        
     </table>    
