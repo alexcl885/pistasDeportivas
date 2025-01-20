@@ -30,14 +30,14 @@
                         <td th:text="${reserva.horario.horaFin}">hora_fin</td>
                         <td th:text="${reserva.fecha}">fecha</td>
                         <td th:if="${!localDate.isEqual(reserva.fecha)} or ${localDate.isAfter(reserva.fecha)}"> <a
-                                class="btn btn-danger" th:href="|reservas/del/${reserva.id}|"> borrar </a></td>
+                                class="btn btn-danger" th:href="|mis-reservas/del/${reserva.id}|"> borrar </a></td>
 
                     </tr>
 
                 </tbody>
 
             </table>
-            <a class="btn btn-success" th:href="|mis-datos/ver-instalaciones|"> Añadir reserva </a>
+            <a class="btn btn-success" th:href="|/mis-datos/ver-instalaciones|"> Añadir reserva </a>
             <p>ATENCIÓN: solo una reserva por día</p>
 
         </div>

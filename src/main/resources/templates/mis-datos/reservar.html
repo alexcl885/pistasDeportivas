@@ -12,9 +12,9 @@
         <h3>Hacer nueva reserva</h3>
 
         <form method="post" th:object="${reserva}" class="needs-validation" novalidate>
-        
+            <input type="hidden" th:field="*{usuario.id}" />
+
             <div class="mb-3">
-                <input type="hidden" name="usuario" th:field="*{usuario}"> 
 
                 <label for="horario" class="form-label">Horario</label>
                 <select class="form-select" 
@@ -33,6 +33,8 @@
                        name="fecha" 
                        class="form-control" 
                        th:value="${reserva.fecha}"/> <br>
+
+                
             </div>
         
             <button type="submit" class="btn btn-primary">Enviar</button>

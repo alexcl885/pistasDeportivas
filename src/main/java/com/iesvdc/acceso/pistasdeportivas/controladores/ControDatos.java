@@ -108,9 +108,10 @@ public class ControDatos {
         Optional<Instalacion> oInstalacion = repoInstalacion.findById(id);
 
         if (oInstalacion.isPresent()) {
-            modelo.addAttribute("usuario", getLoggedUser());
             modelo.addAttribute("horarios", repoHorario.findByInstalacion(oInstalacion.get()));
-            modelo.addAttribute("reserva", new Reserva());
+            Reserva reserva = new Reserva();
+            reserva.setUsuario(getLoggedUser());
+            modelo.addAttribute("reserva", reserva);
             return "mis-datos/reservar";
         } else {
             modelo.addAttribute("mensaje", "La instalación no exsiste");
@@ -124,6 +125,33 @@ public class ControDatos {
         repoReserva.save(reserva);
         return "redirect:/mis-datos/mis-reservas";
     }
-    
+
+    @GetMapping("mis-reservas/del/{id}")
+    public String delReserva( 
+        @PathVariable @NonNull Long id,
+        Model modelo) {
+
+        Optional<Reserva> oReserva = repoReserva.findById(id);
+        if (oReserva.isPresent()) {
+            modelo.addAttribute("borrando", "verdadero");
+            modelo.addAttribute("reserva", oReserva.get());
+            modelo.addAttribute("usuarios", repoUsuario.findAll());
+            modelo.addAttribute("horarios", repoHorario.findAll());
+            modelo.addAttribute("operacion", "DEL");
+            return "/reservas/add";
+        } else {
+            modelo.addAttribute("mensaje", "La reserva no exsiste");
+            modelo.addAttribute("titulo", "Error borrando reserva.");
+            return "/error";
+        }
+    }
+
+    @PostMapping("mis-reservas/del/{id}")
+    public String delReserva(
+        @ModelAttribute("reserva") Reserva reserva)  {
+        repoReserva.delete(reserva);
+        return "redirect:/reservas";
+    }
+
     
 }
