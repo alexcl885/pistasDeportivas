@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{plantilla/fragmentos.html :: headfiles}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div th:replace="plantilla/fragmentos.html :: navigation"></div>
+
+        <h3 th:switch="${operacion}">
+            <span th:case="'ADD'">Añadir una nueva reserva</span>
+            <span th:case="'DEL'">Eliminar una reserva</span>
+            <span th:case="'EDIT'">Editar una reserva</span>
+            <span th:case="*">Operación no soportada</span>
+        </h3>
+
+        <form method="post" th:object="${reserva}" class="needs-validation" novalidate>
+            <input type="number" hidden name="id" th:value="${reserva.id}" />
+        
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Usuario</label>
+                <!--Maestro-detalle realizado para seleccionar a un usuario-->
+                
+                        
+                <select class="form-select" th:field="*{usuario.id}" name="usuario" id="usuario" 
+                th:attr="disabled=${borrando} != null ? 'disabled' : null">
+                    <option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+                        th:text="${usuario.username}"></option>
+                </select>
+
+                <label for="nombre" class="form-label">Fecha</label>
+                <input type="date" 
+                       id="fecha" 
+                       name="fecha" 
+                       class="form-control" 
+                       th:value="${reserva.fecha}" 
+                       th:attr="disabled=${borrando} != null ? 'disabled' : null" /> <br>
+                
+                <label th:if="${borrando == null}" for="horario" class="form-label">Instalacion/Horario</label>
+
+                
+                
+                <label for="horario" class="form-label">Horario-Instalacion</label>
+                <select class="form-select" 
+                        th:field="*{horario.id}" 
+                        id="horario" 
+                        th:attr="disabled=${borrando} != null ? 'disabled' : null">
+                    <option th:each="horario : ${horarios}" 
+                            th:value="${horario.id}" 
+                            th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}+ ' || ' + ' Instalacion: '+ ${horario.instalacion.nombre}">
+                    </option>
+                </select>
+
+                
+
+                
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+        
+        
+
+        <div th:replace="plantilla/fragmentos.html ::footer"></div>
+    </div>
+</body>
+</html>
