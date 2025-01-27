@@ -51,16 +51,19 @@ public class ControReserva {
 
     @GetMapping("/add")
     public String addReserva(Model modelo) {
-        modelo.addAttribute("reserva", new Instalacion());
+        modelo.addAttribute("reserva", new Reserva());
         modelo.addAttribute("operacion", "ADD");
-        return "/reservas/add";
+        modelo.addAttribute("usuarios", repoUsuario.findAll());
+        modelo.addAttribute("horarios", repoHorario.findAll());
+        modelo.addAttribute("instalaciones", repoInstalacion.findAll());
+        return "/reservas/addReserva";
     }
 
     @PostMapping("/add")
     public String addReserva(
         @ModelAttribute("reserva") Reserva reserva)  {
         repoReserva.save(reserva);
-        return "redirect:/reserva";
+        return "redirect:/reservas";
     }
 
     @GetMapping("/edit/{id}")

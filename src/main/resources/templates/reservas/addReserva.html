@@ -41,11 +41,7 @@
                 
                 <label th:if="${borrando == null}" for="horario" class="form-label">Instalacion/Horario</label>
 
-                <a class="btn btn-primary" 
-                    th:if="${borrando == null}"
-                    th:href="|/reservas/edit/${reserva.id}/horario/edit/${reserva.horario.id}|">
-                    cambiar para todas
-                </a><br><br>
+                
                 
                 <label for="horario" class="form-label">Horario-Instalacion</label>
                 <select class="form-select" 

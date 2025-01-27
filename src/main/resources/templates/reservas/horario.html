@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div th:replace="plantilla/fragmentos.html :: navigation"></div>
         <h3>Editar Horario</h3>
-        <form method="post" th:object="${horario}" class="needs-validation" novalidate>
+        <form method="post" th:object="${horario}" th:action="@{/reservas/edit/{id}/horario/edit/{idHorario}(id=${horario.id}, idHorario=${horario.id})}" class="needs-validation" novalidate>
             <input type="hidden" th:field="*{id}" />
 
             <div class="mb-3">
