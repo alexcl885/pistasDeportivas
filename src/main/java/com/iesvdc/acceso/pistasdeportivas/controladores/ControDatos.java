@@ -114,7 +114,7 @@ public class ControDatos {
             modelo.addAttribute("reserva", reserva);
             return "mis-datos/reservar";
         } else {
-            modelo.addAttribute("mensaje", "La instalación no exsiste");
+            modelo.addAttribute("mensaje", "La instalación no existe");
             return "/error";
         }
 
@@ -127,31 +127,16 @@ public class ControDatos {
     }
 
     @GetMapping("mis-reservas/del/{id}")
-    public String delReserva( 
-        @PathVariable @NonNull Long id,
-        Model modelo) {
-
+    public String delReserva(Model modelo, @PathVariable @NonNull Long id)  {
         Optional<Reserva> oReserva = repoReserva.findById(id);
         if (oReserva.isPresent()) {
-            modelo.addAttribute("borrando", "verdadero");
-            modelo.addAttribute("reserva", oReserva.get());
-            modelo.addAttribute("usuarios", repoUsuario.findAll());
-            modelo.addAttribute("horarios", repoHorario.findAll());
-            modelo.addAttribute("operacion", "DEL");
-            return "/reservas/add";
-        } else {
+            repoReserva.delete(oReserva.get());
+        }else {
             modelo.addAttribute("mensaje", "La reserva no exsiste");
             modelo.addAttribute("titulo", "Error borrando reserva.");
             return "/error";
         }
+        return "redirect:/mis-datos/mis-reservas";
     }
-
-    @PostMapping("mis-reservas/del/{id}")
-    public String delReserva(
-        @ModelAttribute("reserva") Reserva reserva)  {
-        repoReserva.delete(reserva);
-        return "redirect:/reservas";
-    }
-
     
 }
