@@ -143,6 +143,11 @@ public class ControDatos {
             }
             
         }
+        if (reserva.getFecha().isAfter(LocalDate.now().plusDays(7)) || reserva.getFecha().isBefore(LocalDate.now().plusDays(1))) {
+            modelo.addAttribute("mensaje", "Error fecha no permitida");
+            modelo.addAttribute("titulo", "No ha sido posible hacer su reserva");
+            return "/error";
+        }
         repoReserva.save(reserva);
         return "redirect:/mis-datos/mis-reservas";
     }
