@@ -2,9 +2,11 @@ package com.iesvdc.acceso.pistasdeportivas.controladores;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.type.descriptor.java.LocalDateJavaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
@@ -112,7 +114,8 @@ public class ControDatos {
             Reserva reserva = new Reserva();
             reserva.setUsuario(getLoggedUser());
             modelo.addAttribute("reserva", reserva);
-            modelo.addAttribute("reservas", repoReserva.findAll());
+            modelo.addAttribute("fechaMin", LocalDate.now().plusDays(1).toString());
+            modelo.addAttribute("fechaMax", LocalDate.now().plusDays(7).toString());
             return "mis-datos/reservar";
         } else {
             modelo.addAttribute("mensaje", "La instalación no existe");

@@ -19,20 +19,21 @@
                 <label for="horario" class="form-label">Horario</label>
                 <select class="form-select" 
                         th:field="*{horario.id}" 
-                        id="horario" 
-                        th:attr="disabled=${borrando} != null ? 'disabled' : null">
+                        id="horario">
                     <option th:each="horario : ${horarios}" 
                             th:value="${horario.id}" 
                             th:text="${horario.horaInicio} + ' - ' + ${horario.horaFin}">
                     </option>
                 </select>
-                
+                <h4>Máximo reservar con una semana de antelación</h4>
                 <label for="fecha" class="form-label">Fecha</label>
                 <input type="date" 
-                       id="fecha" 
-                       name="fecha" 
-                       class="form-control" 
-                       th:value="${reserva.fecha}"/> <br>
+                    th:min="${fechaMin}" 
+                    th:max="${fechaMax}"
+                    id="fecha" 
+                    name="fecha" 
+                    class="form-control" 
+                    th:value="${reserva.fecha}"/> <br>
 
                 
             </div>
