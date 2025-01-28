@@ -112,6 +112,7 @@ public class ControDatos {
             Reserva reserva = new Reserva();
             reserva.setUsuario(getLoggedUser());
             modelo.addAttribute("reserva", reserva);
+            modelo.addAttribute("reservas", repoReserva.findAll());
             return "mis-datos/reservar";
         } else {
             modelo.addAttribute("mensaje", "La instalación no existe");
@@ -121,7 +122,24 @@ public class ControDatos {
     }
 
     @PostMapping("/reservar/{id}")
-    public String postMethodName(@ModelAttribute("reserva") Reserva reserva) {
+    public String postMethodName(@ModelAttribute("reserva") Reserva reserva, Model modelo) {
+        List<Reserva> reservas = repoReserva.findAll();
+        List<Reserva> reservaUsuario = new ArrayList<Reserva>();
+        
+        for (Reserva reser : reservas) {
+            if (reser.getUsuario().equals(getLoggedUser())){
+                reservaUsuario.add(reser);
+            }
+        }
+
+        for (Reserva reser2 : reservaUsuario){
+            if (reser2.getFecha().equals(reserva.getFecha())){
+                modelo.addAttribute("titulo", "No se puede reservar el mismo dia");
+                modelo.addAttribute("mensaje", "No se puede reservar el mismo dia");
+                return "/error";
+            }
+            
+        }
         repoReserva.save(reserva);
         return "redirect:/mis-datos/mis-reservas";
     }
