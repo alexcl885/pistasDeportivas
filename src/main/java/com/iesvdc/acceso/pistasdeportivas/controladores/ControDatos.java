@@ -156,7 +156,9 @@ public class ControDatos {
     public String delReserva(Model modelo, @PathVariable @NonNull Long id)  {
         Optional<Reserva> oReserva = repoReserva.findById(id);
         if (oReserva.isPresent()) {
-            repoReserva.delete(oReserva.get());
+            if (!oReserva.get().getFecha().isBefore(LocalDate.now())) {
+                repoReserva.delete(oReserva.get());
+            }
         }else {
             modelo.addAttribute("mensaje", "La reserva no exsiste");
             modelo.addAttribute("titulo", "Error borrando reserva.");
